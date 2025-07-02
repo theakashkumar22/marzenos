@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Marzenos - Coming Soon",
     description: "Experience the essence of ancient Rome through our luxurious fragrance collection.",
-    url: "https://yourdomain.com",
+    url: "https://marzenos.netlify.app/",
     siteName: "Marzenos",
     images: [
       {
