@@ -1,0 +1,37 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "The Art of Roman Perfumery",
+      "excerpt": "Discover the ancient secrets of Roman fragrance crafting that inspire our modern collection.",
+      "content": "In the heart of ancient Rome, perfumery was not merely a craft—it was an art form that spoke to the soul. Our master perfumers have spent years studying the classical techniques used by Roman artisans, who believed that fragrance could transport one to the divine realm.\n\nThe Romans were pioneers in the art of scent, using exotic ingredients from across their vast empire. From the precious saffron of Hispania to the mystical frankincense of Arabia, each ingredient was carefully selected for its unique properties and symbolic meaning.\n\nAt Marzenos, we honor this legacy by combining these time-tested ingredients with modern extraction techniques, creating fragrances that are both timeless and contemporary.",
+      "author": "Ashwin S",
+      "date": "2025-05-21",
+      "image": "/bp-1.jpg",
+      "category": "Heritage",
+      "readTime": "5 min read"
+    },
+    {
+      "id": 2,
+      "title": "Tabacum Vanilla: A Journey Through Time",
+      "excerpt": "Explore the rich history and complex notes of our signature fragrance.",
+      "content": "Tabacum Vanilla represents the pinnacle of our craftsmanship—a fragrance that tells the story of ancient Rome's love affair with exotic spices and precious botanicals.\n\nThe journey begins with the finest tobacco leaves, aged in Roman amphora for months to develop their complex, smoky character. These are then blended with Madagascar vanilla, creating a harmony that is both powerful and refined.\n\nThe fragrance opens with bright bergamot and spicy cardamom, reminiscent of the bustling Roman markets. The heart reveals the signature tobacco and vanilla accord, while the base notes of amber and sandalwood provide a warm, lasting embrace.\n\nThis is more than a fragrance—it's a portal to the grandeur of ancient Rome.",
+      "author": "Anoop Sachin",
+      "date": "2025-06-10",
+      "image": "/bp-2.jpg",
+      "category": "Fragrance",
+      "readTime": "7 min read"
+    },
+    {
+      "id": 3,
+      "title": "The Philosophy of Scent",
+      "excerpt": "Understanding how fragrance connects us to memory, emotion, and the divine.",
+      "content": "The ancient Romans understood what modern science has only recently confirmed—that scent is our most powerful connection to memory and emotion. In Roman culture, fragrance was believed to be a bridge between the mortal and divine realms.\n\nOur philosophy at Marzenos is rooted in this ancient wisdom. We believe that a truly exceptional fragrance should not merely smell beautiful—it should evoke emotions, trigger memories, and transport the wearer to another time and place.\n\nEach of our fragrances is crafted with this philosophy in mind, using ingredients that have been revered for centuries for their ability to affect mood and consciousness. From the meditative qualities of frankincense to the energizing properties of citrus, every note is chosen for its emotional resonance.\n\nWhen you wear Marzenos, you're not just wearing a fragrance—you're participating in an ancient ritual of transformation.",
+      "author": "Akash kumar",
+      "date": "2025-06-25",
+      "image": "/bp-3.jpg",
+      "category": "Philosophy",
+      "readTime": "6 min read"
+    }
+  ]
+}
