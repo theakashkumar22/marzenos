@@ -19,9 +19,13 @@ export default function ComingSoonPage() {
   })
 
   useEffect(() => {
-    // Set launch date to 3 months from now
-    const launchDate = new Date()
-    launchDate.setMonth(launchDate.getMonth() + 3)
+    // Set a fixed launch date - Update this date as needed
+    // Format: new Date(year, month-1, day, hour, minute, second)
+    // Example: April 15, 2025 at 12:00 PM
+    // const launchDate = new Date(2025, 7, 15, 12, 0, 0) // April 15, 2025, 12:00 PM
+    
+    // Alternative: Set launch date as a string (easier to read)
+    const launchDate = new Date("2025-07-15T12:00:00")
 
     const timer = setInterval(() => {
       const now = new Date().getTime()
@@ -36,6 +40,7 @@ export default function ComingSoonPage() {
 
       if (distance < 0) {
         clearInterval(timer)
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
       }
     }, 1000)
 
@@ -53,6 +58,9 @@ export default function ComingSoonPage() {
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden animate-fade-in">
       <Navigation />
+
+      
+
       {/* Roman Pattern Background */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-r from-transparent via-[#c4996b] to-transparent shimmer-effect"></div>
@@ -72,7 +80,7 @@ export default function ComingSoonPage() {
         <div className="mb-8 text-center animate-slide-down">
           <div className="mt-20 mb-6">
             <Image
-              src="/marzenos-brand.svg"
+              src="/Untitled-design-1.png"
               alt="Marzenos Logo"
               width={200}
               height={200}
@@ -211,7 +219,7 @@ export default function ComingSoonPage() {
             <div className="relative">
               <Image
                 src="/marzenos-tb.png"
-                alt="TOBACUM VANILLAE - Marzenos Signature Fragrance"
+                alt="TABACUM VANNILLA - Marzenos Signature Fragrance"
                 width={300}
                 height={400}
                 className="mx-auto rounded-lg shadow-2xl border border-[#c4996b]/20 transition-all duration-500 hover:shadow-[#c4996b]/30 hover:scale-105 group-hover:shadow-2xl"
@@ -231,7 +239,7 @@ export default function ComingSoonPage() {
                 className="text-[#c4996b] font-bold text-xl mb-2"
                 style={{ fontFamily: "Garamond, 'Times New Roman', serif" }}
               >
-                TOBACUM VANILLAE
+                TABACUM VANNILLA
               </h4>
               <p
                 className="text-gray-300 text-sm mb-3 leading-relaxed"
