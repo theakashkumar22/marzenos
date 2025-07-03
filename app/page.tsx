@@ -58,12 +58,16 @@ export default function ComingSoonPage() {
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden animate-fade-in">
       <Navigation />
+
+      
+
       {/* Roman Pattern Background */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-r from-transparent via-[#c4996b] to-transparent shimmer-effect"></div>
         <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-r from-transparent via-[#c4996b] to-transparent shimmer-effect"></div>
-        <div className="absolute top-0 left-0 w-8 h-full bg-gradient-to-b from-transparent via-[#c4996b] to-transparent"></div>
-        <div className="absolute top-0 right-0 w-8 h-full bg-gradient-to-b from-transparent via-[#c4996b] to-transparent"></div>
+        {/* Hide side gradients on mobile */}
+        <div className="hidden md:block absolute top-0 left-0 w-8 h-full bg-gradient-to-b from-transparent via-[#c4996b] to-transparent"></div>
+        <div className="hidden md:block absolute top-0 right-0 w-8 h-full bg-gradient-to-b from-transparent via-[#c4996b] to-transparent"></div>
       </div>
 
       {/* Roman Corner Decorations */}
@@ -74,14 +78,14 @@ export default function ComingSoonPage() {
 
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-8">
         {/* Logo Section */}
-        <div className="mb-8 text-center animate-slide-down">
-          <div className="mt-20 mb-6">
+        <div className="mb-4 text-center ">
+          <div className="mt-20 mb-2">
             <Image
               src="/Untitled-design-1.png"
               alt="Marzenos Logo"
-              width={200}
-              height={200}
-              className="mx-auto filter brightness-110 animate-float"
+              width={150}
+              height={150}
+              className="mx-auto filter brightness-110 "
             />
           </div>
         </div>
@@ -89,7 +93,7 @@ export default function ComingSoonPage() {
         {/* Main Heading */}
         <div className="text-center mb-12 max-w-4xl animate-slide-up">
           <h1
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-[#c4996b] mb-6 animate-pulse-subtle"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-[#c4996b] mb-0 animate-pulse-subtle"
             style={{
               fontFamily: "Garamond, 'Times New Roman', serif",
               letterSpacing: "0.111em",
@@ -99,7 +103,7 @@ export default function ComingSoonPage() {
             MARZENOS
           </h1>
           <h2
-            className="text-xl md:text-2xl lg:text-3xl text-[#c4996b]/80 mb-8"
+            className="text-xl md:text-xl lg:text-2xl text-[#c4996b] mb-8"
             style={{ fontFamily: "'Times New Roman', Garamond, serif" }}
           >
             ROME
@@ -125,7 +129,7 @@ export default function ComingSoonPage() {
           >
             LAUNCHING SOON
           </h3>
-          <div className="grid grid-cols-4 gap-4 md:gap-8 text-center">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-8 max-w-xs sm:max-w-2xl mx-auto text-center">
             {[
               { label: "Days", value: timeLeft.days },
               { label: "Hours", value: timeLeft.hours },
@@ -134,16 +138,16 @@ export default function ComingSoonPage() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="bg-[#c4996b]/10 border border-[#c4996b]/30 rounded-lg p-4 md:p-6 transform hover:scale-105 transition-all duration-300 hover:bg-[#c4996b]/20"
+                className="bg-[#c4996b]/10 border border-[#c4996b]/30 rounded-lg p-4 md:p-6 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 hover:bg-[#c4996b]/20"
               >
                 <div
-                  className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#c4996b]/80 mb-2"
+                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#c4996b]/80 mb-1 sm:mb-2"
                   style={{ fontFamily: "Garamond, 'Times New Roman', serif" }}
                 >
                   {item.value.toString().padStart(2, "0")}
                 </div>
                 <div
-                  className="text-sm md:text-base text-gray-400 uppercase tracking-wider"
+                  className="text-xs sm:text-sm md:text-base text-gray-400 uppercase tracking-wider"
                   style={{ fontFamily: "'Times New Roman', Garamond, serif" }}
                 >
                   {item.label}
@@ -202,16 +206,6 @@ export default function ComingSoonPage() {
           </h3>
           
           <div className="relative inline-block group">
-            {/* Premium Badge */}
-            <div className="absolute -top-6 -right-6 z-20 bg-gradient-to-r from-[#c4996b] to-[#d4a976] text-black px-4 py-2 rounded-full shadow-lg border border-[#c4996b]/30 animate-bounce">
-              <div className="flex items-center space-x-1">
-                <Crown className="w-4 h-4" />
-                <span className="text-sm font-bold" style={{ fontFamily: "'Times New Roman', Garamond, serif" }}>
-                  PREMIUM
-                </span>
-              </div>
-            </div>
-
             {/* Product Image Container */}
             <div className="relative">
               <Image
@@ -253,7 +247,7 @@ export default function ComingSoonPage() {
               </div>
               
               {/* Price Preview */}
-              <div className="flex justify-center items-center space-x-3">
+              <div className="flex justify-center items-center space-x-3 mb-4">
                 <span
                   className="text-gray-500 line-through text-sm"
                   style={{ fontFamily: "'Times New Roman', Garamond, serif" }}
@@ -270,11 +264,25 @@ export default function ComingSoonPage() {
                   LAUNCH OFFER
                 </span>
               </div>
+              {/* Shop Now Button */}
+              <Button
+                className="w-full sm:w-auto bg-[#c4996b] hover:bg-[#c4996b]/90 text-black font-semibold py-2 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-[#c4996b]/20 text-sm sm:text-base mt-2"
+                style={{ fontFamily: "'Times New Roman', Garamond, serif" }}
+                disabled={
+                  // Disable if launch day is not reached
+                  timeLeft.days > 0 ||
+                  timeLeft.hours > 0 ||
+                  timeLeft.minutes > 0 ||
+                  timeLeft.seconds > 0
+                }
+              >
+                SHOP NOW
+              </Button>
             </div>
           </div>
           
-          {/* Product Features */}
-          <div className="mt-8 max-w-2xl mx-auto">
+          {/* Product Features - Hide on small screens */}
+          <div className="mt-8 max-w-2xl mx-auto hidden md:block">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
               <div className="bg-[#c4996b]/10 border border-[#c4996b]/30 rounded-lg p-4 hover:bg-[#c4996b]/20 transition-all duration-300">
                 <h5 className="text-[#c4996b] font-semibold mb-2" style={{ fontFamily: "Garamond, 'Times New Roman', serif" }}>

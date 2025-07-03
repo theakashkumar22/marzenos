@@ -7,7 +7,11 @@ import { Calendar, User, Clock, ArrowRight } from "lucide-react"
 import blogData from "@/data/blog-posts.json"
 
 export default function BlogPage() {
+  // Sort posts by date descending (most recent first)
   const { posts } = blogData
+  const sortedPosts = [...posts].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  )
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -37,14 +41,14 @@ export default function BlogPage() {
           </div>
 
           {/* Featured Post */}
-          {posts.length > 0 && (
+          {sortedPosts.length > 0 && (
             <div className="mb-20 animate-zoom-in">
               <div className="relative overflow-hidden rounded-2xl glass-effect hover:bg-[#c4996b]/5 transition-all duration-500 group">
                 <div className="grid md:grid-cols-2 gap-8 p-8">
                   <div className="relative">
                     <Image
-                      src={posts[0].image || "/placeholder.svg"}
-                      alt={posts[0].title}
+                      src={sortedPosts[0].image || "/placeholder.svg"}
+                      alt={sortedPosts[0].title}
                       width={600}
                       height={400}
                       className="rounded-lg shadow-xl group-hover:scale-105 transition-transform duration-500"
@@ -59,31 +63,31 @@ export default function BlogPage() {
                     <div className="flex items-center space-x-4 text-sm text-gray-400">
                       <span className="flex items-center">
                         <Calendar className="w-4 h-4 mr-1" />
-                        {new Date(posts[0].date).toLocaleDateString()}
+                        {new Date(sortedPosts[0].date).toLocaleDateString()}
                       </span>
                       <span className="flex items-center">
                         <User className="w-4 h-4 mr-1" />
-                        {posts[0].author}
+                        {sortedPosts[0].author}
                       </span>
                       <span className="flex items-center">
                         <Clock className="w-4 h-4 mr-1" />
-                        {posts[0].readTime}
+                        {sortedPosts[0].readTime}
                       </span>
                     </div>
                     <h2
                       className="text-3xl md:text-4xl font-bold text-[#c4996b] group-hover:text-[#c4996b]/80 transition-colors duration-300"
                       style={{ fontFamily: "Garamond, 'Times New Roman', serif" }}
                     >
-                      {posts[0].title}
+                      {sortedPosts[0].title}
                     </h2>
                     <p
                       className="text-gray-300 leading-relaxed text-lg"
                       style={{ fontFamily: "'Times New Roman', Garamond, serif" }}
                     >
-                      {posts[0].excerpt}
+                      {sortedPosts[0].excerpt}
                     </p>
                     <Link
-                      href={`/blog/${posts[0].id}`}
+                      href={`/blog/${sortedPosts[0].id}`}
                       className="inline-flex items-center text-[#c4996b] hover:text-[#c4996b]/80 transition-colors duration-300 font-semibold"
                     >
                       Read More{" "}
@@ -97,7 +101,7 @@ export default function BlogPage() {
 
           {/* Blog Posts Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.slice(1).map((post, index) => (
+            {sortedPosts.slice(1).map((post, index) => (
               <article
                 key={post.id}
                 className="glass-effect rounded-xl overflow-hidden hover:bg-[#c4996b]/5 transition-all duration-500 transform hover:scale-105 animate-fade-in group"
