@@ -284,3 +284,18 @@
   border: 1px solid rgba(196, 153, 107, 0.3);
   box-shadow: 0 12px 40px rgba(196, 153, 107, 0.2);
 }
+
+/* Autofill background and text color fix for dark themes */
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:hover {
+  -webkit-box-shadow: 0 0 0 1000px #181818 inset !important; /* match your bg-black */
+  box-shadow: 0 0 0 1000px #181818 inset !important;
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #fff !important;
+  color: #fff !important;
+  transition: background-color 5000s ease-in-out 0s;
+}

@@ -25,7 +25,7 @@ export default function ComingSoonPage() {
     // const launchDate = new Date(2025, 7, 15, 12, 0, 0) // April 15, 2025, 12:00 PM
     
     // Alternative: Set launch date as a string (easier to read)
-    const launchDate = new Date("2025-07-15T12:00:00")
+    const launchDate = new Date("2025-08-15T12:00:00")
 
     const timer = setInterval(() => {
       const now = new Date().getTime()
@@ -182,7 +182,7 @@ export default function ComingSoonPage() {
           </h3>
           <form onSubmit={handleEmailSubmit} className="space-y-4">
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#c4996b] w-5 h-5" />
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#c4996b] w-5 h-5 z-10 pointer-events-none" />
               <Input
                 type="email"
                 placeholder="Enter your email address"
@@ -204,7 +204,7 @@ export default function ComingSoonPage() {
         </div>
 
         {/* Product Preview - Enhanced */}
-        <div className="mb-12 text-center animate-zoom-in">
+        <div className="mb-10 text-center animate-zoom-in">
           <h3
             className="text-2xl md:text-3xl text-[#c4996b] mb-8"
             style={{
@@ -275,20 +275,22 @@ export default function ComingSoonPage() {
                   LAUNCH OFFER
                 </span>
               </div>
-              {/* Shop Now Button */}
-              <Button
-                className="w-full sm:w-auto bg-[#c4996b] hover:bg-[#c4996b]/90 text-black font-semibold py-2 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-[#c4996b]/20 text-sm sm:text-base mt-2"
-                style={{ fontFamily: "'Times New Roman', Garamond, serif" }}
-                disabled={
-                  // Disable if launch day is not reached
-                  timeLeft.days > 0 ||
-                  timeLeft.hours > 0 ||
-                  timeLeft.minutes > 0 ||
-                  timeLeft.seconds > 0
-                }
-              >
-                SHOP NOW
-              </Button>
+              {/* Shop Now Button or Launch Info */}
+              {(timeLeft.days === 0 &&
+                timeLeft.hours === 0 &&
+                timeLeft.minutes === 0 &&
+                timeLeft.seconds === 0) ? (
+                <Button
+                  className="w-full sm:w-auto bg-[#c4996b] hover:bg-[#c4996b]/90 text-black font-semibold py-2 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-[#c4996b]/20 text-sm sm:text-base mt-2"
+                  style={{ fontFamily: "'Times New Roman', Garamond, serif" }}
+                >
+                  SHOP NOW
+                </Button>
+              ) : (
+                <div className="text-[#c4996b] text-xs sm:text-sm mt-2 font-semibold" style={{ fontFamily: "'Times New Roman', Garamond, serif" }}>
+                  Product available from launch date
+                </div>
+              )}
             </div>
           </div>
           
@@ -343,7 +345,16 @@ export default function ComingSoonPage() {
 
         {/* Footer */}
         <div className="text-center text-gray-500 text-sm">
-          <p style={{ fontFamily: "'Times New Roman', Garamond, serif" }}>© 2025 Marzenos. All rights reserved.</p>
+          <p style={{ fontFamily: "'Times New Roman', Garamond, serif" }}>© {new Date().getFullYear()} Marzenos. All rights reserved.
+            <span className="mx-2 text-[#c4996b]">|</span>
+            <a
+              href="/contact"
+              className="text-[#c4996b] hover:underline hover:text-[#c4996b]/80 font-semibold transition-colors duration-200"
+              style={{ fontFamily: "'Times New Roman', Garamond, serif" }}
+            >
+              Contact Us
+            </a>
+          </p>
         </div>
       </div>
     </div>
