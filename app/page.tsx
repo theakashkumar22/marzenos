@@ -17,16 +17,10 @@ export default function ComingSoonPage() {
     minutes: 0,
     seconds: 0,
   })
+  const [launched, setLaunched] = useState(false)
 
   useEffect(() => {
-    // Set a fixed launch date - Update this date as needed
-    // Format: new Date(year, month-1, day, hour, minute, second)
-    // Example: April 15, 2025 at 12:00 PM
-    // const launchDate = new Date(2025, 7, 15, 12, 0, 0) // April 15, 2025, 12:00 PM
-    
-    // Alternative: Set launch date as a string (easier to read)
     const launchDate = new Date("2025-08-15T12:00:00")
-
     const timer = setInterval(() => {
       const now = new Date().getTime()
       const distance = launchDate.getTime() - now
@@ -41,42 +35,45 @@ export default function ComingSoonPage() {
       if (distance < 0) {
         clearInterval(timer)
         setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+        setLaunched(true)
       }
     }, 1000)
+
+    // If already launched on first render
+    if (new Date().getTime() >= launchDate.getTime()) {
+      setLaunched(true)
+    }
 
     return () => clearInterval(timer)
   }, [])
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  try {
-    const res = await fetch("/api/subscribe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
-    if (res.ok) {
-      alert("Thank you for subscribing! You'll be notified when we launch.");
-      setEmail("");
-    } else {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        alert("Thank you for subscribing! You'll be notified when we launch.");
+        setEmail("");
+      } else {
+        alert("There was an error. Please try again.");
+      }
+    } catch {
       alert("There was an error. Please try again.");
     }
-  } catch {
-    alert("There was an error. Please try again.");
-  }
-};
+  };
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden animate-fade-in">
       <Navigation />
 
-      
-
       {/* Roman Pattern Background */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-r from-transparent via-[#c4996b] to-transparent shimmer-effect"></div>
         <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-r from-transparent via-[#c4996b] to-transparent shimmer-effect"></div>
-        {/* Hide side gradients on mobile */}
         <div className="hidden md:block absolute top-0 left-0 w-8 h-full bg-gradient-to-b from-transparent via-[#c4996b] to-transparent"></div>
         <div className="hidden md:block absolute top-0 right-0 w-8 h-full bg-gradient-to-b from-transparent via-[#c4996b] to-transparent"></div>
       </div>
@@ -128,80 +125,85 @@ export default function ComingSoonPage() {
           </p>
         </div>
 
-        {/* Countdown Timer */}
-        <div className="mb-12 animate-fade-in-delayed">
-          <h3
-            className="text-2xl md:text-3xl text-[#c4996b] text-center mb-8"
-            style={{
-              fontFamily: "Garamond, 'Times New Roman', serif",
-              letterSpacing: "0.111em",
-              lineHeight: "1.4",
-            }}
-          >
-            LAUNCHING SOON
-          </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-8 max-w-xs sm:max-w-2xl mx-auto text-center">
-            {[
-              { label: "Days", value: timeLeft.days },
-              { label: "Hours", value: timeLeft.hours },
-              { label: "Minutes", value: timeLeft.minutes },
-              { label: "Seconds", value: timeLeft.seconds },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="bg-[#c4996b]/10 border border-[#c4996b]/30 rounded-lg p-4 md:p-6 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 hover:bg-[#c4996b]/20"
+        {/* Only show launch-related components if NOT launched */}
+        {!launched && (
+          <>
+            {/* Countdown Timer */}
+            <div className="mb-12 animate-fade-in-delayed">
+              <h3
+                className="text-2xl md:text-3xl text-[#c4996b] text-center mb-8"
+                style={{
+                  fontFamily: "Garamond, 'Times New Roman', serif",
+                  letterSpacing: "0.111em",
+                  lineHeight: "1.4",
+                }}
               >
-                <div
-                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#c4996b]/80 mb-1 sm:mb-2"
-                  style={{ fontFamily: "Garamond, 'Times New Roman', serif" }}
-                >
-                  {item.value.toString().padStart(2, "0")}
+                LAUNCHING SOON
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-8 max-w-xs sm:max-w-2xl mx-auto text-center">
+                {[
+                  { label: "Days", value: timeLeft.days },
+                  { label: "Hours", value: timeLeft.hours },
+                  { label: "Minutes", value: timeLeft.minutes },
+                  { label: "Seconds", value: timeLeft.seconds },
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    className="bg-[#c4996b]/10 border border-[#c4996b]/30 rounded-lg p-4 md:p-6 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 hover:bg-[#c4996b]/20"
+                  >
+                    <div
+                      className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#c4996b]/80 mb-1 sm:mb-2"
+                      style={{ fontFamily: "Garamond, 'Times New Roman', serif" }}
+                    >
+                      {item.value.toString().padStart(2, "0")}
+                    </div>
+                    <div
+                      className="text-xs sm:text-sm md:text-base text-gray-400 uppercase tracking-wider"
+                      style={{ fontFamily: "'Times New Roman', Garamond, serif" }}
+                    >
+                      {item.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Email Subscription */}
+            <div className="mb-12 w-full max-w-md animate-slide-up-delayed">
+              <h3
+                className="text-xl md:text-2xl text-[#c4996b] text-center mb-6"
+                style={{
+                  fontFamily: "Garamond, 'Times New Roman', serif",
+                  letterSpacing: "0.111em",
+                  lineHeight: "1.4",
+                }}
+              >
+                BE THE FIRST TO KNOW
+              </h3>
+              <form onSubmit={handleEmailSubmit} className="space-y-4">
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#c4996b] w-5 h-5 z-10 pointer-events-none" />
+                  <Input
+                    type="email"
+                    placeholder="Enter your email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-12 glass-effect text-white placeholder-gray-400 focus:border-[#c4996b] focus:ring-[#c4996b] transition-all duration-300"
+                    style={{ fontFamily: "'Times New Roman', Garamond, serif" }}
+                    required
+                  />
                 </div>
-                <div
-                  className="text-xs sm:text-sm md:text-base text-gray-400 uppercase tracking-wider"
+                <Button
+                  type="submit"
+                  className="w-full bg-[#c4996b] hover:bg-[#c4996b]/90 text-black font-semibold py-3 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-[#c4996b]/20"
                   style={{ fontFamily: "'Times New Roman', Garamond, serif" }}
                 >
-                  {item.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Email Subscription */}
-        <div className="mb-12 w-full max-w-md animate-slide-up-delayed">
-          <h3
-            className="text-xl md:text-2xl text-[#c4996b] text-center mb-6"
-            style={{
-              fontFamily: "Garamond, 'Times New Roman', serif",
-              letterSpacing: "0.111em",
-              lineHeight: "1.4",
-            }}
-          >
-            BE THE FIRST TO KNOW
-          </h3>
-          <form onSubmit={handleEmailSubmit} className="space-y-4">
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#c4996b] w-5 h-5 z-10 pointer-events-none" />
-              <Input
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="pl-12 glass-effect text-white placeholder-gray-400 focus:border-[#c4996b] focus:ring-[#c4996b] transition-all duration-300"
-                style={{ fontFamily: "'Times New Roman', Garamond, serif" }}
-                required
-              />
+                  NOTIFY ME AT LAUNCH
+                </Button>
+              </form>
             </div>
-            <Button
-              type="submit"
-              className="w-full bg-[#c4996b] hover:bg-[#c4996b]/90 text-black font-semibold py-3 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-[#c4996b]/20"
-              style={{ fontFamily: "'Times New Roman', Garamond, serif" }}
-            >
-              NOTIFY ME AT LAUNCH
-            </Button>
-          </form>
-        </div>
+          </>
+        )}
 
         {/* Product Preview - Enhanced */}
         <div className="mb-10 text-center animate-zoom-in">
@@ -276,10 +278,7 @@ export default function ComingSoonPage() {
                 </span>
               </div>
               {/* Shop Now Button or Launch Info */}
-              {(timeLeft.days === 0 &&
-                timeLeft.hours === 0 &&
-                timeLeft.minutes === 0 &&
-                timeLeft.seconds === 0) ? (
+              {(launched) ? (
                 <Button
                   className="w-full sm:w-auto bg-[#c4996b] hover:bg-[#c4996b]/90 text-black font-semibold py-2 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-[#c4996b]/20 text-sm sm:text-base mt-2"
                   style={{ fontFamily: "'Times New Roman', Garamond, serif" }}
@@ -288,39 +287,9 @@ export default function ComingSoonPage() {
                 </Button>
               ) : (
                 <div className="text-[#c4996b] text-xs sm:text-sm mt-2 font-semibold" style={{ fontFamily: "'Times New Roman', Garamond, serif" }}>
-                  Product available from launch date
+                  Launching on {`${timeLeft.days}d ${timeLeft.hours}h ${timeLeft.minutes}m ${timeLeft.seconds}s`}
                 </div>
               )}
-            </div>
-          </div>
-          
-          {/* Product Features - Hide on small screens */}
-          <div className="mt-8 max-w-2xl mx-auto hidden md:block">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-              <div className="bg-[#c4996b]/10 border border-[#c4996b]/30 rounded-lg p-4 hover:bg-[#c4996b]/20 transition-all duration-300">
-                <h5 className="text-[#c4996b] font-semibold mb-2" style={{ fontFamily: "Garamond, 'Times New Roman', serif" }}>
-                  LONG LASTING
-                </h5>
-                <p className="text-gray-400 text-sm" style={{ fontFamily: "'Times New Roman', Garamond, serif" }}>
-                  12+ Hour Wear Time
-                </p>
-              </div>
-              <div className="bg-[#c4996b]/10 border border-[#c4996b]/30 rounded-lg p-4 hover:bg-[#c4996b]/20 transition-all duration-300">
-                <h5 className="text-[#c4996b] font-semibold mb-2" style={{ fontFamily: "Garamond, 'Times New Roman', serif" }}>
-                  WARM & RICH
-                </h5>
-                <p className="text-gray-400 text-sm" style={{ fontFamily: "'Times New Roman', Garamond, serif" }}>
-                  Tobacco & Vanilla Notes
-                </p>
-              </div>
-              <div className="bg-[#c4996b]/10 border border-[#c4996b]/30 rounded-lg p-4 hover:bg-[#c4996b]/20 transition-all duration-300">
-                <h5 className="text-[#c4996b] font-semibold mb-2" style={{ fontFamily: "Garamond, 'Times New Roman', serif" }}>
-                  ARTISAN CRAFTED
-                </h5>
-                <p className="text-gray-400 text-sm" style={{ fontFamily: "'Times New Roman', Garamond, serif" }}>
-                  Hand-Blended in Rome
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -358,5 +327,5 @@ export default function ComingSoonPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
